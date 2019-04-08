@@ -104,6 +104,7 @@ public class IotclientApplication implements CommandLineRunner{
 		System.out.println("获取locked属性值：get locked");
 		System.out.println("设置locked属性值：set locked; set unlocked");
 		System.out.println("获取骑行数据：getHistory");
+		System.out.println("退出：exit");
 	}
 
 }
