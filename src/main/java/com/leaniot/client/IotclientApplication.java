@@ -1,4 +1,4 @@
-package com.leanit.client;
+package com.leaniot.client;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

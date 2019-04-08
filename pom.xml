@@ -9,9 +9,9 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.leanit.client</groupId>
+	<groupId>com.leaniot.client</groupId>
 	<artifactId>Client</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>iotclient</name>
 	<description>LeanIoT Platform client application demo</description>
 

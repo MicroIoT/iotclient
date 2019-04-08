@@ -1,6 +1,6 @@
-package com.leanit.client;
+package com.leaniot.client;
 
-import java.util.List;
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Records {
-	private List<Record> records;
+public class Filter {
+	private Date startDate;
+	private Date endDate;
 }
