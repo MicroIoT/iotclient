@@ -35,6 +35,8 @@ public class IotclientApplication implements CommandLineRunner{
 		bikeAlarm.setAlarmInfoType(alarmType);
 		wsession.subscribe(bikeId, bikeAlarm);
 		
+		System.out.println("请输入命令：");
+		command();
 		@SuppressWarnings("resource")
 		Scanner scanner = new Scanner(System.in);
 		while(true) {
@@ -87,11 +89,21 @@ public class IotclientApplication implements CommandLineRunner{
 						System.out.println("record: " + record.getSessionid() + " from: " + sdf.format(record.getStartTime()) + " to: " + sdf.format(record.getEndTime()));
 					}
 				}
+				else {
+					command();
+				}
 			}
 			catch(Throwable e) {
 				e.printStackTrace(new java.io.PrintStream(System.out));
 			}
 		}
+	}
+
+	private void command() {
+		System.out.println("获取location属性值：get location");
+		System.out.println("获取locked属性值：get locked");
+		System.out.println("设置locked属性值：set locked; set unlocked");
+		System.out.println("获取骑行数据：getHistory");
 	}
 
 }
