@@ -30,7 +30,7 @@ public class IotclientApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		String bikeId = "5caa9cf1ddd50a20164a4cda";
 
-		Map<String, Class<?>> alarmType = new HashMap<String, Class<?>>();
+		Map<String, Object> alarmType = new HashMap<String, Object>();
 		alarmType.put("StateChangedAlarm", StateChangedAlarm.class);
 		bikeAlarm.setAlarmInfoType(alarmType);
 		wsession.subscribe(bikeId, bikeAlarm);
