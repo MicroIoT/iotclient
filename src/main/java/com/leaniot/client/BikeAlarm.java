@@ -11,6 +11,11 @@ import com.leaniot.domain.Device;
 public class BikeAlarm extends AlarmSubscriber {
 
 	@Override
+	public void init() {
+		addType("StateChangedAlarm", StateChangedAlarm.class);
+	}
+
+	@Override
 	public void onAlarm(Device device, String alarmType, Object alarmInfo, Date reportTime, Date receiveTime) {
 		if (alarmType.equals("StateChangedAlarm")) {
 			StateChangedAlarm info = (StateChangedAlarm) alarmInfo;

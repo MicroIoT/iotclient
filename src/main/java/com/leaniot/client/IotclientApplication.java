@@ -2,8 +2,6 @@ package com.leaniot.client;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +26,8 @@ public class IotclientApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		String bikeId = "5caa9cf1ddd50a20164a4cda";
+		String bikeId = "5caee793ddd50a2fdfdf6bec";
 
-		Map<String, Object> alarmType = new HashMap<String, Object>();
-		alarmType.put("StateChangedAlarm", StateChangedAlarm.class);
-		bikeAlarm.setAlarmInfoType(alarmType);
 		wsession.subscribe(bikeId, bikeAlarm);
 		
 		System.out.println("请输入命令：");
