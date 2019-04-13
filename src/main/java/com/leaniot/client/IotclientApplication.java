@@ -2,12 +2,14 @@ package com.leaniot.client;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.core.ParameterizedTypeReference;
 
 import com.leaniot.api.client.WebsocketClientSession;
 import com.leaniot.domain.attribute.Location;
@@ -26,7 +28,7 @@ public class IotclientApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		String bikeId = "5caee793ddd50a2fdfdf6bec";
+		String bikeId = "5cb1acb3ddd50a1cbaee3009";
 
 		wsession.subscribe(bikeId, bikeAlarm);
 		
@@ -78,8 +80,8 @@ public class IotclientApplication implements CommandLineRunner{
 						throw new ValueException("start date must before end date");
 					
 					filter = new Filter(start, end);
-					Records records = wsession.action(bikeId, "getHistory", filter, Records.class);
-					for(Record record : records.getRecords()) {
+					List<Record> records = wsession.action(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {});
+					for(Record record : records) {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						System.out.println("record: " + record.getSessionid() + " from: " + sdf.format(record.getStartTime()) + " to: " + sdf.format(record.getEndTime()));
 					}
