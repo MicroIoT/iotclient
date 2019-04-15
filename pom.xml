@@ -21,7 +21,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.leaniot</groupId>
+			<groupId>com.github.ileaniot</groupId>
 			<artifactId>iotapi</artifactId>
 			<version>1.0.0</version>
 		</dependency>
