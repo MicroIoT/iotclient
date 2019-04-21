@@ -1,11 +1,11 @@
-package com.leaniot.client;
+package top.microiot.client;
 
 import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
-import com.leaniot.api.client.stomp.AlarmSubscriber;
-import com.leaniot.domain.Device;
+import top.microiot.api.client.stomp.AlarmSubscriber;
+import top.microiot.domain.Device;
 
 @Component
 public class BikeAlarm extends AlarmSubscriber {

@@ -1,4 +1,4 @@
-package com.leaniot.client;
+package top.microiot.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
