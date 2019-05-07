@@ -45,7 +45,7 @@ public class IotclientApplication implements CommandLineRunner{
 				}
 				else if(line.equals("get location")) {
 					Location location = wsession.get(bikeId, "location", Location.class);
-					System.out.println("location: [longitude: " + location.getLongitude() + " lantitude: " + location.getLantitude() + "]");
+					System.out.println("location: [longitude: " + location.getLongitude() + " lantitude: " + location.getLatitude() + "]");
 				}
 				else if(line.equals("get locked")) {
 					boolean locked = wsession.get(bikeId, "locked", Boolean.class);
