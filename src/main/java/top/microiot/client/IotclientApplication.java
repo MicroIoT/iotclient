@@ -21,6 +21,13 @@ public class IotclientApplication implements CommandLineRunner{
 	private WebsocketClientSession wsession;
 	@Autowired
 	private BikeAlarm bikeAlarm;
+	@Autowired
+	private MyGet myGet;
+	@Autowired
+	private MySet mySet;
+	@Autowired
+	private MyAction myAction;
+	private boolean sync = true;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(IotclientApplication.class, args);
@@ -44,20 +51,40 @@ public class IotclientApplication implements CommandLineRunner{
 					System.exit(0);
 				}
 				else if(line.equals("get location")) {
-					Location location = wsession.get(bikeId, "location", Location.class);
-					System.out.println("location: [longitude: " + location.getLongitude() + " latitude: " + location.getLatitude() + "]");
+					if(sync) {
+						Location location = wsession.get(bikeId, "location", Location.class);
+						System.out.println("location: [longitude: " + location.getLongitude() + " latitude: " + location.getLatitude() + "]");
+					}
+					else {
+						wsession.getAsync(bikeId, "location", Location.class, myGet);
+					}
 				}
 				else if(line.equals("get locked")) {
-					boolean locked = wsession.get(bikeId, "locked", Boolean.class);
-					System.out.println("locked: " + locked);
+					if(sync) {
+						boolean locked = wsession.get(bikeId, "locked", Boolean.class);
+						System.out.println("locked: " + locked);
+					}
+					else {
+						wsession.getAsync(bikeId, "locked", Boolean.class, myGet);
+					}
 				}
 				else if(line.equals("set locked")) {
-					boolean locked = true;
-					wsession.set(bikeId, "locked", locked);
+					if(sync) {
+						boolean locked = true;
+						wsession.set(bikeId, "locked", locked);
+					}
+					else {
+						wsession.setAsync(bikeId, "locked", true, mySet);
+					}
 				}
 				else if(line.equals("set unlocked")) {
-					boolean unlocked = false;
-					wsession.set(bikeId, "locked", unlocked);
+					if(sync) {
+						boolean unlocked = false;
+						wsession.set(bikeId, "locked", unlocked);
+					}
+					else {
+						wsession.setAsync(bikeId, "locked", false, mySet);
+					}
 				}
 				else if(line.startsWith("getHistory")) {
 					String[] p = line.split(" ");
@@ -80,11 +107,25 @@ public class IotclientApplication implements CommandLineRunner{
 						throw new ValueException("start date must before end date");
 					
 					filter = new Filter(start, end);
-					List<Record> records = wsession.action(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {});
-					for(Record record : records) {
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						System.out.println("record: " + record.getSessionid() + " from: " + sdf.format(record.getStartTime()) + " to: " + sdf.format(record.getEndTime()));
+					
+					if(sync) {
+						List<Record> records = wsession.action(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {});
+						for(Record record : records) {
+							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+							System.out.println("record: " + record.getSessionid() + " from: " + sdf.format(record.getStartTime()) + " to: " + sdf.format(record.getEndTime()));
+						}
 					}
+					else {
+						wsession.actionAsync(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {}, myAction);
+					}
+				}
+				else if(line.startsWith("sync")) {
+					this.sync = true;
+					System.out.println("当前调用方式：同步调用");
+				}
+				else if(line.startsWith("async")) {
+					this.sync = false;
+					System.out.println("当前调用方式：异步调用");
 				}
 				else {
 					command();
@@ -101,7 +142,12 @@ public class IotclientApplication implements CommandLineRunner{
 		System.out.println("获取locked属性值：get locked");
 		System.out.println("设置locked属性值：set locked; set unlocked");
 		System.out.println("获取骑行数据：getHistory");
+		System.out.println("设置调用方式：sync; async");
 		System.out.println("退出：exit");
+		if(sync)
+			System.out.println("当前调用方式：同步调用");
+		else
+			System.out.println("当前调用方式：异步调用");
 	}
 
 }
