@@ -17,4 +17,9 @@ public class MySet extends SetResponseSubscriber {
 		}
 	}
 
+	@Override
+	public void onSetError(Device device, String attribute, Object value, String error) {
+		System.out.println(device.getString() + " set attribute[" + attribute + "] error: " + error);
+	}
+
 }

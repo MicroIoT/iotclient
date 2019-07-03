@@ -24,4 +24,8 @@ public class MyAction extends ActionResponseSubscriber {
 		
 	}
 
+	@Override
+	public void onActionError(Device device, String action, Object request, String error) {
+		System.out.println(device.getString() + " async action[" + action + "] error: " + error);
+	}
 }

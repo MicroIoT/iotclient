@@ -9,6 +9,11 @@ import top.microiot.domain.attribute.Location;
 @Component
 public class MyGet extends GetResponseSubscriber {
 	@Override
+	public void onGetError(Device device, String attribute, String error) {
+		System.out.println(device.getString() + " attribute[" + attribute + "] error:" + error);
+	}
+
+	@Override
 	public void onGetResult(Device device, String attribute, Object value) {
 		System.out.println(device.getString() + " attribute[" + attribute + "]:");
 		if(attribute.equals("location")) {
