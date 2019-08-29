@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import top.microiot.api.client.stomp.AlarmSubscriber;
-import top.microiot.domain.NotifyObject;
+import top.microiot.domain.ManagedObject;
 
 @Component
 public class BikeAlarm extends AlarmSubscriber {
@@ -16,7 +16,7 @@ public class BikeAlarm extends AlarmSubscriber {
 	}
 
 	@Override
-	public void onAlarm(NotifyObject notifyObject, String alarmType, Object alarmInfo, Date reportTime, Date receiveTime) {
+	public void onAlarm(ManagedObject notifyObject, String alarmType, Object alarmInfo, Date reportTime, Date receiveTime) {
 		if (alarmType.equals("StateChangedAlarm")) {
 			StateChangedAlarm info = (StateChangedAlarm) alarmInfo;
 
