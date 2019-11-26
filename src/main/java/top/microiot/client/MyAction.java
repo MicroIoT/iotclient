@@ -18,7 +18,7 @@ public class MyAction extends ActionResponseSubscriber {
 			@SuppressWarnings("unchecked")
 			List<Record> records = (List<Record>)response;
 			for(Record record : records) {
-				System.out.println("record: " + record.getSessionid() + " from: " + record.getStartTime().toLocaleString() + " to: " + record.getEndTime().toLocaleString());
+				System.out.println("record:  from: " + record.getStartTime().toLocaleString() + " to: " + record.getEndTime().toLocaleString());
 			}
 		}
 		

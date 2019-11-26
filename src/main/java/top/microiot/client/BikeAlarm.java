@@ -21,7 +21,7 @@ public class BikeAlarm extends AlarmSubscriber {
 			StateChangedAlarm info = (StateChangedAlarm) alarmInfo;
 
 			System.out
-					.println("StateChangedAlarm: sessionid is " + info.getSessionid() + " locked: " + info.isLocked());
+					.println("StateChangedAlarm:  locked: " + info.isLocked());
 		} else
 			System.out.println(alarmType + " device: " + notifyObject.getString());
 	}

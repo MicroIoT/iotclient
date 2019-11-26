@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.core.ParameterizedTypeReference;
 
 import top.microiot.api.client.WebsocketClientSession;
@@ -17,6 +19,7 @@ import top.microiot.domain.attribute.Location;
 import top.microiot.exception.ValueException;
 
 @SpringBootApplication
+@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
 public class IotclientApplication implements CommandLineRunner{
 	@Autowired
 	private WebsocketClientSession wsession;
@@ -41,7 +44,7 @@ public class IotclientApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		String bikeId = "5d67a030c11068467c73d17d";
+		String bikeId = "5ddb83fb0e8e3d0001f60ed3";
 		session = wsession;
 		
 		wsession.subscribe(bikeId, bikeAlarm);
@@ -120,7 +123,7 @@ public class IotclientApplication implements CommandLineRunner{
 						List<Record> records = session.action(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {});
 						for(Record record : records) {
 							SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-							System.out.println("record: " + record.getSessionid() + " from: " + sdf.format(record.getStartTime()) + " to: " + sdf.format(record.getEndTime()));
+							System.out.println("record:  from: " + sdf.format(record.getStartTime()) + " to: " + sdf.format(record.getEndTime()));
 						}
 					}
 					else {
