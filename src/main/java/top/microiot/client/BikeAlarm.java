@@ -2,12 +2,9 @@ package top.microiot.client;
 
 import java.util.Date;
 
-import org.springframework.stereotype.Component;
-
 import top.microiot.api.client.stomp.AlarmSubscriber;
 import top.microiot.domain.ManagedObject;
 
-@Component
 public class BikeAlarm extends AlarmSubscriber {
 
 	@Override

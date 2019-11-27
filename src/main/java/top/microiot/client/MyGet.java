@@ -1,12 +1,9 @@
 package top.microiot.client;
 
-import org.springframework.stereotype.Component;
-
 import top.microiot.api.client.stomp.GetResponseSubscriber;
 import top.microiot.domain.Device;
 import top.microiot.domain.attribute.Location;
 
-@Component
 public class MyGet extends GetResponseSubscriber {
 	@Override
 	public void onGetError(Device device, String attribute, String error) {
