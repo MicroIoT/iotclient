@@ -18,8 +18,7 @@ import top.microiot.api.client.WebsocketClientSession;
 import top.microiot.domain.attribute.Location;
 import top.microiot.exception.ValueException;
 
-@SpringBootApplication
-@EnableAutoConfiguration(exclude={MongoAutoConfiguration.class})
+@SpringBootApplication(exclude={MongoAutoConfiguration.class})
 public class IotclientApplication implements CommandLineRunner{
 	@Autowired
 	private WebsocketClientSession wsession;
