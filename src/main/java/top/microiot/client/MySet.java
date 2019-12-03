@@ -1,8 +1,11 @@
 package top.microiot.client;
 
+import org.springframework.stereotype.Component;
+
 import top.microiot.api.client.stomp.SetResponseSubscriber;
 import top.microiot.domain.Device;
 
+@Component
 public class MySet extends SetResponseSubscriber {
 
 	@Override

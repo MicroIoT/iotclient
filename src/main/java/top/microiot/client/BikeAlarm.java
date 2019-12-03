@@ -2,9 +2,12 @@ package top.microiot.client;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import top.microiot.api.client.stomp.AlarmSubscriber;
 import top.microiot.domain.ManagedObject;
 
+@Component
 public class BikeAlarm extends AlarmSubscriber {
 
 	@Override
@@ -17,8 +20,7 @@ public class BikeAlarm extends AlarmSubscriber {
 		if (alarmType.equals("StateChangedAlarm")) {
 			StateChangedAlarm info = (StateChangedAlarm) alarmInfo;
 
-			System.out
-					.println("StateChangedAlarm:  locked: " + info.isLocked());
+			System.out.println("StateChangedAlarm:  locked: " + info.isLocked() + " from: " + notifyObject.getString());
 		} else
 			System.out.println(alarmType + " device: " + notifyObject.getString());
 	}

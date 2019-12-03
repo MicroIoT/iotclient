@@ -27,6 +27,17 @@ public class IotclientApplication implements CommandLineRunner{
 	
 	private WebsocketClientSession session;
 
+	@Autowired
+	private BikeAlarm bikeAlarm;
+	@Autowired
+	private BikeAlarm bike1Alarm;
+	@Autowired
+	private MyGet myGet;
+	@Autowired
+	private MySet mySet;
+	@Autowired
+	private MyAction myAction;
+	
 	private boolean sync = true;
 	
 	public static void main(String[] args) {
@@ -38,8 +49,8 @@ public class IotclientApplication implements CommandLineRunner{
 		String bikeId = "5ddb83fb0e8e3d0001f60ed3";
 		session = wsession;
 		
-		wsession.subscribe(bikeId, new BikeAlarm());
-		wsession1.subscribe(bikeId, new BikeAlarm());
+		wsession.subscribe(bikeId, bikeAlarm);
+		wsession1.subscribe(bikeId, bike1Alarm);
 		
 		System.out.println("请输入命令：");
 		command();
@@ -58,7 +69,7 @@ public class IotclientApplication implements CommandLineRunner{
 						System.out.println("location: [longitude: " + location.getLongitude() + " latitude: " + location.getLatitude() + "]");
 					}
 					else {
-						session.getAsync(bikeId, "location", Location.class, new MyGet());
+						session.getAsync(bikeId, "location", Location.class, myGet);
 					}
 				}
 				else if(line.equals("get locked")) {
@@ -67,7 +78,7 @@ public class IotclientApplication implements CommandLineRunner{
 						System.out.println("locked: " + locked);
 					}
 					else {
-						session.getAsync(bikeId, "locked", Boolean.class, new MyGet());
+						session.getAsync(bikeId, "locked", Boolean.class, myGet);
 					}
 				}
 				else if(line.equals("set locked")) {
@@ -76,7 +87,7 @@ public class IotclientApplication implements CommandLineRunner{
 						session.set(bikeId, "locked", locked);
 					}
 					else {
-						session.setAsync(bikeId, "locked", true, new MySet());
+						session.setAsync(bikeId, "locked", true, mySet);
 					}
 				}
 				else if(line.equals("set unlocked")) {
@@ -85,7 +96,7 @@ public class IotclientApplication implements CommandLineRunner{
 						session.set(bikeId, "locked", unlocked);
 					}
 					else {
-						session.setAsync(bikeId, "locked", false, new MySet());
+						session.setAsync(bikeId, "locked", false, mySet);
 					}
 				}
 				else if(line.startsWith("getHistory")) {
@@ -118,7 +129,7 @@ public class IotclientApplication implements CommandLineRunner{
 						}
 					}
 					else {
-						session.actionAsync(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {}, new MyAction());
+						session.actionAsync(bikeId, "getHistory", filter, new ParameterizedTypeReference<List<Record>>() {}, myAction);
 					}
 				}
 				else if(line.startsWith("sync")) {

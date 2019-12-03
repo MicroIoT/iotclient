@@ -2,9 +2,12 @@ package top.microiot.client;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import top.microiot.api.client.stomp.ActionResponseSubscriber;
 import top.microiot.domain.Device;
 
+@Component
 public class MyAction extends ActionResponseSubscriber {
 
 	@SuppressWarnings("deprecation")
